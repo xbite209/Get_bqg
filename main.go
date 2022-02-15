@@ -34,13 +34,14 @@ func URLAndArtileTitle() {
 	for i := 0; i < len(urlResult); i++ {
 		urlResult[i][0] = URLinfo + urlResult[i][0][9:len(urlResult[i][0])-21]
 	}
-	fmt.Println(urlResult)
+	/*fmt.Println(urlResult)*/
 	re = regexp.MustCompile(`<dd>.*</dd>`)
 	titleResult := re.FindAllStringSubmatch(string(n), -1)
 
 	for i := 0; i < len(titleResult); i++ {
 		titleResult[i][0] = titleResult[i][0][4 : len(titleResult[i][0])-5]
 	}
+	fmt.Println("正在爬取文章....")
 	getArtileContent(urlResult, titleResult)
 }
 
@@ -107,5 +108,6 @@ func getArtileContent(urlresult, titleResult [][]string) {
 			})
 		}
 	}
+	fmt.Println("爬取文章结束...")
 
 }
