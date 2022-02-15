@@ -14,7 +14,7 @@ import (
 func main() {
 	var a []string
 
-	for i := 1; i <= 8; i++ {
+	for i := 1; i <= 9; i++ {
 		url := `https://www.biqugeso.org/indexlist/132699/`
 		url = url + strconv.Itoa(i)
 		read(url, a)
