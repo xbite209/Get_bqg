@@ -84,6 +84,7 @@ func read(url string, a []string) { //读取所有章节信息
 }
 
 func getArtileContent(urlresult, titleResult [][]string) {
+	os.Mkdir("my章节", os.ModePerm)
 	for i := 0; i < len(urlresult); i++ {
 		for j := 1; j <= 2; j++ {
 			resp, err := http.Get(urlresult[i][0] + `_` + strconv.Itoa(j) + `.html`)
