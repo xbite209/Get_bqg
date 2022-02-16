@@ -9,6 +9,7 @@ import (
 	"os"
 	"regexp"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -65,7 +66,6 @@ func URLAndArtileTitle(articleNum int) {
 		title = link.Text()
 	}
 	titleURL = titleURL + title
-	
 
 	/*	doc.Find(".box_con").Each(func(i int, s *goquery.Selection) {
 		title := s.Find("h1").Text()
@@ -133,6 +133,9 @@ func getArtileContent(urlresult, titleResult [][]string, titleURL string) {
 			}
 
 			p := doc.Find("div", "id", "booktxt").FindAll("p")
+			
+			strings.Replace(p[len(p)-1].Text(),`本章未完，点击下一页继续阅读。`,``,-1)
+			
 			for _, p := range p {
 				/*fmt.Println(p.Text())*/
 				txtfile.WriteString(p.Text() + "\n")
