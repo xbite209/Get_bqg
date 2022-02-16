@@ -15,10 +15,8 @@ func main() {
 	os.Remove("list.txt")
 
 	var articleNum, pageNum int
-	fmt.Println("请输入小说页面id:_________________________________________________________")
-	fmt.Scanln(&articleNum)
-	fmt.Println("请输入小说网页目录页面数量 ：________________________________________________")
-	fmt.Scanln(&pageNum)
+	fmt.Println("请输入小说页面id:__________,以及输入小说网页目录页面数量___________")
+	fmt.Scanln(&articleNum, &pageNum)
 
 	fmt.Printf("你输入的小说id为： %d ,小说网页目录页数数量为： %d\n", articleNum, pageNum)
 
@@ -67,6 +65,7 @@ func URLAndArtileTitle(articleNum int) {
 		title = link.Text()
 	}
 	titleURL = titleURL + title
+	
 
 	/*	doc.Find(".box_con").Each(func(i int, s *goquery.Selection) {
 		title := s.Find("h1").Text()
@@ -119,7 +118,6 @@ func read(url string, a []string) { //读取所有章节信息
 func getArtileContent(urlresult, titleResult [][]string, titleURL string) {
 
 	/*os.Mkdir("my章节", os.ModePerm)*/
-
 	for i := 0; i < len(urlresult); i++ {
 		for j := 1; j <= 2; j++ {
 			resp, err := soup.Get(urlresult[i][0] + `_` + strconv.Itoa(j) + `.html`)
