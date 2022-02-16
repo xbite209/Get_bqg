@@ -12,6 +12,8 @@ import (
 )
 
 func main() {
+	os.Remove("list.txt")
+
 	var articleNum, pageNum int
 	fmt.Println("请输入小说页面id:_________________________________________________________")
 	fmt.Scanln(&articleNum)
