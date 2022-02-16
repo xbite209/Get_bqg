@@ -1,4 +1,4 @@
-#Get BQG's articles tools.
+Get bqg's articles tools.
 
 This is a tool written in Go language to crawl BQG web articles
 
