@@ -98,7 +98,7 @@ func getArtileContent(urlresult, titleResult [][]string) {
 			if err != nil {
 				panic(err)
 			}
-			txtfile, err := os.OpenFile("./章节/"+titleResult[i][0]+`.txt`, os.O_CREATE|os.O_WRONLY|os.O_APPEND, os.ModePerm)
+			txtfile, err := os.OpenFile("./my章节/"+titleResult[i][0]+`.txt`, os.O_CREATE|os.O_WRONLY|os.O_APPEND, os.ModePerm)
 			if err != nil {
 				panic(err)
 			}
