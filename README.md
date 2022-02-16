@@ -12,6 +12,8 @@ This is a tool written in Go language to crawl BQG web articles
 Configure the Go language runtime environment,and do some prep work.
 
 Because the third-party package file "github.com/PuerkitoBio/goquery" is imported, you need to make the following settings.
+    
+    go env -w GO111MODULE=auto
 
     go mod init Directory Name or Path  
           
