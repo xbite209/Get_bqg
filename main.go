@@ -12,6 +12,9 @@ import (
 )
 
 func main() {
+	
+	os.Remove("list.txt")
+	
 	var a []string
 
 	for i := 1; i <= 9; i++ {
