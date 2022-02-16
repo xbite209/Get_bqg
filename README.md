@@ -9,16 +9,21 @@ This is a tool written in Go language to crawl BQG web articles
 
 ## Installation
 
+Configure the Go language runtime environment,and do some prep work.
 
-You need to create the "my章节" directory.
-
-          "my章节"directory  
-          
 Because the third-party package file "github.com/PuerkitoBio/goquery" is imported, you need to make the following settings.
 
-          go mod init Directory Name or Path  
+    go mod init Directory Name or Path  
           
-          go get github.com/PuerkitoBio/goquery  
+    go get github.com/PuerkitoBio/goquery  
+    
+
+Run the file by executing the following command through the terminal.
+
+    go run main.go  
+    
+
+          
           
           
          
