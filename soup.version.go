@@ -59,26 +59,25 @@ func URLAndArtileTitle(articleNum int) {
 
 	doc := soup.HTMLParse(resp)
 
-	titleURL := `my章节/`
+	titleURL := `my章节`
 	links := doc.Find("h1").FindAll("a")
 	var title string
 	for _, link := range links {
 		title = link.Text()
 	}
-	titleURL = titleURL + title
+	os.MkdirAll(titleURL, os.ModePerm)
+
+	titleURL = titleURL + `/` + title
 
 	/*	doc.Find(".box_con").Each(func(i int, s *goquery.Selection) {
 		title := s.Find("h1").Text()
 		titleURL = titleURL + title
 	})*/
-	fmt.Println(titleURL)
-	os.MkdirAll(titleURL, os.ModePerm)
 
 	getArtileContent(urlResult, titleResult, titleURL)
 }
 
 func writeAritleList(a []string) { //写入文件
-	/*fmt.Println(a)*/
 	list, err := os.OpenFile("./list.txt", os.O_CREATE|os.O_WRONLY|os.O_APPEND, os.ModePerm)
 	defer list.Close()
 	if err != nil {
@@ -116,6 +115,10 @@ func read(url string, a []string) { //读取所有章节信息
 }
 
 func getArtileContent(urlresult, titleResult [][]string, titleURL string) {
+	txtfile, err := os.OpenFile("./"+titleURL+`.txt`, os.O_CREATE|os.O_WRONLY|os.O_APPEND, os.ModePerm)
+	if err != nil {
+		panic(err)
+	}
 
 	/*os.Mkdir("my章节", os.ModePerm)*/
 	for i := 0; i < len(urlresult); i++ {
@@ -127,9 +130,12 @@ func getArtileContent(urlresult, titleResult [][]string, titleURL string) {
 
 			doc := soup.HTMLParse(resp)
 
-			txtfile, err := os.OpenFile("./"+titleURL+`/`+titleResult[i][0]+`.txt`, os.O_CREATE|os.O_WRONLY|os.O_APPEND, os.ModePerm)
-			if err != nil {
-				panic(err)
+			if j == 1 {
+				pageTitle := doc.Find("article", "class", "box_con").FindAll("h1")
+				mypageTitle := strings.Replace(pageTitle[0].Text(), `（1/2）`, ``, -1)
+				txtfile.WriteString("\n\n")
+				txtfile.WriteString(mypageTitle)
+				txtfile.WriteString("\n\n")
 			}
 
 			p := doc.Find("div", "id", "booktxt").FindAll("p")
