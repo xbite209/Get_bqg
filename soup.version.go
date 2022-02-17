@@ -133,15 +133,16 @@ func getArtileContent(urlresult, titleResult [][]string, titleURL string) {
 			}
 
 			p := doc.Find("div", "id", "booktxt").FindAll("p")
-			
-			strings.Replace(p[len(p)-1].Text(),`本章未完，点击下一页继续阅读。`,``,-1)
-			
+
+			/*			strings.Replace(p[len(p)-1].Text(), `本章未完，点击下一页继续阅读。`, ``, -1)*/
+
 			for _, p := range p {
-				/*fmt.Println(p.Text())*/
-				txtfile.WriteString(p.Text() + "\n")
+				article_content := p.Text()
+				article_content = strings.Replace(article_content, `本章未完，点击下一页继续阅读。`, ``, -1)
+				txtfile.WriteString(article_content)
 			}
+
 		}
 	}
 	fmt.Println("爬取文章结束...")
-
 }
