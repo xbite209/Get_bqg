@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	_ "github.com/PuerkitoBio/goquery"
 	"github.com/anaskhan96/soup"
 	"io/ioutil"
 	"net/http"
@@ -14,6 +13,7 @@ import (
 
 func main() {
 	os.Remove("list.txt")
+	os.Remove("已爬取.txt")
 
 	var articleNum, pageNum int
 	fmt.Println("请输入小说页面id:__________,以及输入小说网页目录页面数量___________")
@@ -115,10 +115,21 @@ func read(url string, a []string) { //读取所有章节信息
 }
 
 func getArtileContent(urlresult, titleResult [][]string, titleURL string) {
+
+	fmt.Println(titleURL)
+
 	txtfile, err := os.OpenFile("./"+titleURL+`.txt`, os.O_CREATE|os.O_WRONLY|os.O_APPEND, os.ModePerm)
 	if err != nil {
 		panic(err)
 	}
+
+	writed, err := os.OpenFile("./"+`已爬取.txt`, os.O_CREATE|os.O_WRONLY|os.O_APPEND, os.ModePerm)
+	if err != nil {
+		panic(err)
+	}
+
+	defer txtfile.Close()
+	defer writed.Close()
 
 	/*os.Mkdir("my章节", os.ModePerm)*/
 	for i := 0; i < len(urlresult); i++ {
@@ -134,8 +145,10 @@ func getArtileContent(urlresult, titleResult [][]string, titleURL string) {
 				pageTitle := doc.Find("article", "class", "box_con").FindAll("h1")
 				mypageTitle := strings.Replace(pageTitle[0].Text(), `（1/2）`, ``, -1)
 				txtfile.WriteString("\n\n")
+				fmt.Printf("正在爬取: %s\n", mypageTitle)
 				txtfile.WriteString(mypageTitle)
 				txtfile.WriteString("\n\n")
+				writed.WriteString("爬取章数：" + mypageTitle + "\n")
 			}
 
 			p := doc.Find("div", "id", "booktxt").FindAll("p")
